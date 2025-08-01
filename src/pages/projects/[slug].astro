@@ -1,0 +1,77 @@
+---
+// src/pages/projects/[slug].astro
+import { getCollection, type CollectionEntry } from 'astro:content';
+import Layout from '../../layauts/Layaut.astro';
+
+// Esta función le dice a Astro qué páginas debe generar
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map(project => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+
+// Obtenemos los datos del proyecto para esta página específica
+const { project } = Astro.props as { project: CollectionEntry<'projects'> };
+const { Content } = await project.render();
+---
+
+<Layout title={project.data.title}>
+  <main class="max-w-3xl mx-auto px-6 py-24">
+    
+    {/* Título y descripción del proyecto */}
+    <h1 class="text-4xl font-bold text-text-primary mb-4">{project.data.title}</h1>
+    <p class="text-lg text-text-secondary mb-8">{project.data.description}</p>
+    
+    {/* Contenido del Markdown */}
+    <div class="prose prose-invert max-w-none">
+      <Content />
+    </div>
+
+    {/* Enlace para volver */}
+    <div class="mt-16 text-center">
+      <a href="/#projects" class="text-accent hover:text-accent-hover font-semibold">
+        &larr; Volver a Proyectos
+      </a>
+    </div>
+
+  </main>
+</Layout>
+
+<style is:global>
+  /* Estilos para el contenido del markdown */
+  .prose {
+    color: var(--color-text-primary);
+  }
+  .prose h2 {
+    font-size: 1.875rem;
+    font-weight: 700;
+    margin-top: 2.5em;
+    margin-bottom: 1em;
+    border-bottom: 1px solid var(--color-surface);
+    padding-bottom: 0.5em;
+  }
+  .prose h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-top: 2em;
+    margin-bottom: 0.5em;
+  }
+  .prose h4 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+  }
+  .prose p, .prose li {
+    color: var(--color-text-secondary);
+    line-height: 1.75;
+  }
+  .prose strong {
+    color: var(--color-text-primary);
+  }
+  .prose a {
+    color: var(--color-accent);
+  }
+</style>
