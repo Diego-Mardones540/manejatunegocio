@@ -1,0 +1,20 @@
+---
+// src/components/Header.astro
+---
+<header class="bg-background/80 backdrop-blur-sm fixed top-0 left-0 right-0 z-50">
+  <nav class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+    <a href="/" class="text-xl font-bold text-text-primary">
+      Diego Mardones
+    </a>
+    <ul class="hidden md:flex items-center space-x-6 text-sm">
+      <li><a href="#about" class="text-text-secondary hover:text-text-primary transition">Conóceme</a></li>
+      <li><a href="#projects" class="text-text-secondary hover:text-text-primary transition">Proyectos</a></li>
+      <li><a href="#contact" class="text-text-secondary hover:text-text-primary transition">Contáctame</a></li>
+      <li>
+        <a href="/resume.pdf" target="_blank" class="bg-surface text-text-primary px-4 py-2 rounded-md hover:bg-accent hover:text-white transition">
+          Resume
+        </a>
+      </li>
+    </ul>
+  </nav>
+</header>

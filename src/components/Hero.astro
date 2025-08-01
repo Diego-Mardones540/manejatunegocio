@@ -1,0 +1,27 @@
+---
+// src/components/Hero.astro
+---
+<div id="hero-section" class="w-full flex justify-center items-center py-20 px-4">
+  
+  <div class="relative w-full md:w-3/4 lg:w-1/2 rounded-lg overflow-hidden shadow-2xl">
+    
+    <img src="/Captura.PNG" alt="Análisis de datos para Pymes" class="w-full h-auto" />
+
+    <div class="absolute inset-0  bg-opacity-50"></div>
+
+    <div class="absolute inset-0 flex flex-col justify-center items-center text-center text-white p-4">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4 text-shadow">Diego Mardones</h1>
+      <p class="text-lg md:text-xl text-gray-200 mb-8 text-shadow">Análisis de datos para las pymes</p>
+      <a href="#projects" class="inline-block bg-blue-600 text-white px-8 py-3 rounded-md font-semibold hover:bg-blue-700 transition-colors shadow-lg">
+        Explorar proyectos
+      </a>
+    </div>
+
+  </div>
+</div>
+
+<style>
+  .text-shadow {
+    text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
+  }
+</style>
