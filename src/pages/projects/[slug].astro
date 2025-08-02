@@ -2,8 +2,8 @@
 // src/pages/projects/[slug].astro
 import { getCollection, type CollectionEntry } from 'astro:content';
 import Layout from '../../layauts/Layaut.astro';
+import Header from '../../components/Header.astro'; // Añadimos el Header para una navegación consistente
 
-// Esta función le dice a Astro qué páginas debe generar
 export async function getStaticPaths() {
   const projects = await getCollection('projects');
   return projects.map(project => ({
@@ -12,26 +12,26 @@ export async function getStaticPaths() {
   }));
 }
 
-// Obtenemos los datos del proyecto para esta página específica
 const { project } = Astro.props as { project: CollectionEntry<'projects'> };
 const { Content } = await project.render();
 ---
-
 <Layout title={project.data.title}>
-  <main class="max-w-3xl mx-auto px-6 py-24">
+  <Header />
+
+  <main class="max-w-4xl mx-auto px-6 py-32">
     
-    {/* Título y descripción del proyecto */}
-    <h1 class="text-4xl font-bold text-text-primary mb-4">{project.data.title}</h1>
-    <p class="text-lg text-text-secondary mb-8">{project.data.description}</p>
+    <div class="text-center mb-12">
+      <h1 class="text-4xl md:text-5xl font-bold text-text-primary mb-4">{project.data.title}</h1>
+      <p class="text-lg md:text-xl text-text-secondary">{project.data.description}</p>
+    </div>
     
-    {/* Contenido del Markdown */}
     <div class="prose prose-invert max-w-none">
       <Content />
     </div>
 
-    {/* Enlace para volver */}
     <div class="mt-16 text-center">
-      <a href="/#projects" class="text-accent hover:text-accent-hover font-semibold">
+      <a href="/#projects" class="inline-block text-accent font-semibold border border-accent/40 rounded-full px-6 py-3 
+                               transition-all duration-300 hover:bg-accent hover:text-background">
         &larr; Volver a Proyectos
       </a>
     </div>
@@ -40,38 +40,48 @@ const { Content } = await project.render();
 </Layout>
 
 <style is:global>
-  /* Estilos para el contenido del markdown */
+  /* Estilos mejorados para el contenido del markdown */
   .prose {
     color: var(--color-text-primary);
   }
   .prose h2 {
-    font-size: 1.875rem;
+    font-size: 2.25rem; /* 36px */
+    line-height: 2.5rem; /* 40px */
     font-weight: 700;
-    margin-top: 2.5em;
-    margin-bottom: 1em;
-    border-bottom: 1px solid var(--color-surface);
+    letter-spacing: -0.025em;
+    margin-top: 3em;
+    margin-bottom: 1.5em;
     padding-bottom: 0.5em;
+    border-bottom: 1px solid #161B22; /* color 'surface' */
   }
   .prose h3 {
-    font-size: 1.5rem;
+    font-size: 1.875rem; /* 30px */
+    line-height: 2.25rem; /* 36px */
+    font-weight: 600;
+    margin-top: 2.5em;
+    margin-bottom: 0.75em;
+  }
+  .prose h4 {
+    font-size: 1.25rem; /* 20px */
+    line-height: 1.75rem; /* 28px */
     font-weight: 600;
     margin-top: 2em;
     margin-bottom: 0.5em;
   }
-  .prose h4 {
-    font-size: 1.25rem;
-    font-weight: 600;
-    margin-top: 1.5em;
-    margin-bottom: 0.5em;
-  }
-  .prose p, .prose li {
-    color: var(--color-text-secondary);
+  .prose p, .prose li, .prose ul {
+    font-size: 1.125rem; /* 18px */
     line-height: 1.75;
+    color: #8B949E; /* color 'text-secondary' */
   }
   .prose strong {
-    color: var(--color-text-primary);
+    color: #E6EDF3; /* color 'text-primary' */
   }
   .prose a {
-    color: var(--color-accent);
+    color: #2F81F7; /* color 'accent' */
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+  }
+  .prose a:hover {
+    text-decoration: underline;
   }
 </style>

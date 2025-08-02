@@ -1,0 +1,31 @@
+---
+// src/components/TextoImagen.astro
+
+// Definimos las propiedades que el componente puede recibir
+const { 
+  imageUrl, 
+  altText = "Imagen descriptiva", // Valor por defecto para el texto alternativo
+  imageLeft = true // Por defecto, la imagen estará a la izquierda
+} = Astro.props;
+---
+
+<div class:list={[
+  "flex flex-col md:flex-row items-center gap-8 my-12",
+  { 'md:flex-row-reverse': !imageLeft } // Si imageLeft es falso, invierte el orden
+]}>
+  
+  <div class="w-full md:w-2/5">
+    <img 
+      src={imageUrl} 
+      alt={altText} 
+      class="w-full h-auto rounded-lg shadow-lg" 
+      loading="lazy" 
+    />
+  </div>
+  
+  <div class="w-full md:w-3/5">
+    <div class="prose prose-invert max-w-none">
+      <slot />
+    </div>
+  </div>
+</div>
